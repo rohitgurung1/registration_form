@@ -27,7 +27,7 @@ export default function Home() {
                   className="block text-[#0000ff]  font-bold mb-2"
                   htmlFor="studentName"
                 >
-                  Student's Name*
+                  Student&apos;s Name*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
@@ -42,7 +42,7 @@ export default function Home() {
                   className="block text-[#0000ff]  font-bold mb-2"
                   htmlFor="fatherName"
                 >
-                  Father's Name*
+                  Father&apos;s Name*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
