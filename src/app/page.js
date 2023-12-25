@@ -3,6 +3,7 @@
 import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
+import Export from '@/component/Export';
 
 const YourFormComponent = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ const YourFormComponent = () => {
     console.log("Form Data:", formData);
     try {
       const response = await axios.post(
-        "http://localhost:1337/api/application-entities",
+        "https://online.gaasc.edu.np/api/application-entities",
         {
           data: { ...formData },
         }
@@ -56,6 +57,7 @@ const YourFormComponent = () => {
 
   return (
     <main>
+      <Export />
       <div className="mx-5 sm:mx-10 lg:mx-20 xl:mx-40 my-10 flex flex-col justify-center gap-5 rounded-lg shadow-2xl p-6">
         <div className="flex flex-col justify-center items-center gap-5">
           <Image
@@ -170,7 +172,7 @@ const YourFormComponent = () => {
                   id="ward"
                   value={formData.ward}
                   onChange={handleInputChange}
-                  type="text"
+                  type="number"
                   placeholder="Enter ward"
                 />
               </div>
@@ -189,6 +191,7 @@ const YourFormComponent = () => {
                   onChange={handleInputChange}
                   type="Email"
                   placeholder="Enter Email"
+                  required
                 />
               </div>
 
@@ -204,7 +207,7 @@ const YourFormComponent = () => {
                   id="MobileNumber"
                   value={formData.MobileNumber}
                   onChange={handleInputChange}
-                  type="tel"
+                  type="number"
                   placeholder="Enter mobile number"
                 />
               </div>
@@ -276,7 +279,7 @@ const YourFormComponent = () => {
                   id="gpaPercentageSEE"
                   value={formData.gpaPercentageSEE}
                   onChange={handleInputChange}
-                  type="text"
+                  type="number"
                   placeholder="Enter GPA or percentage"
                 />
               </div>
@@ -349,7 +352,7 @@ const YourFormComponent = () => {
                   id="gpaPercentageIntermediate"
                   value={formData.gpaPercentageIntermediate}
                   onChange={handleInputChange}
-                  type="text"
+                  type="number"
                   placeholder="Enter GPA or percentage"
                 />
               </div>
@@ -388,7 +391,8 @@ const YourFormComponent = () => {
                   id="TotalMarks"
                   onChange={handleInputChange}
                   value={formData.TotalMarks}
-                  type="text"
+                  type="number"
+                  required
                   placeholder="Enter total marks obtained"
                 />
               </div>
@@ -433,6 +437,7 @@ const YourFormComponent = () => {
                 type="checkbox"
                 id="termsCheckbox"
                 checked={formData.termsCheckbox}
+                required
                 onChange={(e) =>
                   setFormData({ ...formData, termsCheckbox: e.target.checked })
                 }
