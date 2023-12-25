@@ -1,6 +1,59 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import Image from "next/image";
+import axios from "axios";
+import { useState } from "react";
+
+const YourFormComponent = () => {
+  const [formData, setFormData] = useState({
+    studentName: "",
+    fatherName: "",
+    Nationality: "",
+    district: "",
+    vdc: "",
+    ward: "",
+    Email: "",
+    MobileNumber: "",
+    TelephoneNumber: "",
+    SLCBoard: "",
+    SLCGPAPercentage: "",
+    gpaPercentageSEE: "",
+    SLCDivision: "First Division",
+    IntermediateUniversity: "",
+    IntermediateGPAPercentage: "",
+    gpaPercentageIntermediate: "",
+    IntermediateDIvision: "First Division",
+    TotalMarks: "",
+    SymbolNo: "",
+    Program: "B.Sc. (Agriculture) 2077/078",
+    termsCheckbox: false,
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    console.log("Form Data:", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:1337/api/application-entities",
+        {
+          data: { ...formData },
+        }
+      );
+
+      console.log("Form submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+
   return (
     <main>
       <div className="mx-5 sm:mx-10 lg:mx-20 xl:mx-40 my-10 flex flex-col justify-center gap-5 rounded-lg shadow-2xl p-6">
@@ -17,7 +70,7 @@ export default function Home() {
           </span>
         </div>
         <div>
-          <form className="container mx-auto p-4">
+        <form className="container mx-auto p-4" onSubmit={handleSubmit}>
             <div className="text-[20px] font-bold border-b-2 my-5">
               Personal Information
             </div>
@@ -33,6 +86,8 @@ export default function Home() {
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
                   id="studentName"
                   type="text"
+                  value={formData.studentName}
+                  onChange={handleInputChange}
                   placeholder="Enter student's name"
                 />
               </div>
@@ -47,6 +102,8 @@ export default function Home() {
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
                   id="fatherName"
+                  value={formData.fatherName}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter father's name"
                 />
@@ -55,15 +112,17 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="nationality"
+                  htmlFor="Nationality"
                 >
                   Nationality*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="nationality"
+                  id="Nationality"
+                  value={formData.Nationality}
+                  onChange={handleInputChange}
                   type="text"
-                  placeholder="Enter nationality"
+                  placeholder="Enter Nationality"
                 />
               </div>
 
@@ -77,6 +136,8 @@ export default function Home() {
                 <select
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
                   id="district"
+                  onChange={handleInputChange}
+                  defaultValue={formData.district}
                 >
                   <option value="">-- Select District --</option>
                 </select>
@@ -92,8 +153,9 @@ export default function Home() {
                 <select
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
                   id="vdc"
+                  onChange={handleInputChange}
                 >
-                  <option value="">-- Select VDC --</option>
+                  <option value={formData.vdc}>-- Select VDC --</option>
                 </select>
               </div>
               <div className="mb-4">
@@ -106,6 +168,8 @@ export default function Home() {
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
                   id="ward"
+                  value={formData.ward}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter ward"
                 />
@@ -114,28 +178,32 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="email"
+                  htmlFor="Email"
                 >
                   Email*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
+                  id="Email"
+                  value={formData.Email}
+                  onChange={handleInputChange}
+                  type="Email"
+                  placeholder="Enter Email"
                 />
               </div>
 
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="mobileNumber"
+                  htmlFor="MobileNumber"
                 >
                   Mobile Number
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="mobileNumber"
+                  id="MobileNumber"
+                  value={formData.MobileNumber}
+                  onChange={handleInputChange}
                   type="tel"
                   placeholder="Enter mobile number"
                 />
@@ -144,13 +212,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="telephoneNumber"
+                  htmlFor="TelephoneNumber"
                 >
                   Telephone Number*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="telephoneNumber"
+                  id="TelephoneNumber"
+                  value={formData.TelephoneNumber}
+                  onChange={handleInputChange}
                   type="tel"
                   placeholder="Enter telephone number"
                 />
@@ -163,13 +233,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="board"
+                  htmlFor="SLCBoard"
                 >
                   Board*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="board"
+                  id="SLCBoard"
+                  value={formData.SLCBoard}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter board"
                 />
@@ -178,13 +250,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="slcYear"
+                  htmlFor="SLCGPAPercentage"
                 >
                   SLC Year*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="slcYear"
+                  id="SLCGPAPercentage"
+                  value={formData.SLCGPAPercentage}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter SLC year"
                 />
@@ -193,13 +267,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="gpaPercentage"
+                  htmlFor="gpaPercentageSEE"
                 >
                   GPA/Percentage*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="gpaPercentage"
+                  id="gpaPercentageSEE"
+                  value={formData.gpaPercentageSEE}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter GPA or percentage"
                 />
@@ -208,15 +284,18 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="division"
+                  htmlFor="SLCDivision"
                 >
                   Division
                 </label>
                 <select
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="division"
+                  id="SLCDivision"
+                  onChange={handleInputChange}
                 >
-                  <option value="">-- Distinction --</option>
+                  <option value={formData.SLCDivision}>
+                    -- Distinction --
+                  </option>
                 </select>
               </div>
             </div>
@@ -227,13 +306,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="board"
+                  htmlFor="IntermediateUniversity"
                 >
                   Board*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="board"
+                  id="IntermediateUniversity"
+                  onChange={handleInputChange}
+                  value={formData.IntermediateUniversity}
                   type="text"
                   placeholder="Enter board"
                 />
@@ -242,13 +323,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="slcYear"
+                  htmlFor="IntermediateGPAPercentage"
                 >
                   SLC Year*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="slcYear"
+                  id="IntermediateGPAPercentage"
+                  value={formData.IntermediateGPAPercentage}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter SLC year"
                 />
@@ -257,13 +340,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="gpaPercentage"
+                  htmlFor="gpaPercentageIntermediate"
                 >
                   GPA/Percentage*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="gpaPercentage"
+                  id="gpaPercentageIntermediate"
+                  value={formData.gpaPercentageIntermediate}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter GPA or percentage"
                 />
@@ -272,15 +357,18 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="division"
+                  htmlFor="IntermediateDIvision"
                 >
                   Division
                 </label>
                 <select
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="division"
+                  id="IntermediateDIvision"
+                  onChange={handleInputChange}
                 >
-                  <option value="">-- Distinction --</option>
+                  <option value={formData.IntermediateDIvision}>
+                    -- Distinction --
+                  </option>
                 </select>
               </div>
             </div>
@@ -291,13 +379,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="totalMarks"
+                  htmlFor="TotalMarks"
                 >
                   Total Marks Obtained*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="totalMarks"
+                  id="TotalMarks"
+                  onChange={handleInputChange}
+                  value={formData.TotalMarks}
                   type="text"
                   placeholder="Enter total marks obtained"
                 />
@@ -306,13 +396,15 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="symbolNo"
+                  htmlFor="SymbolNo"
                 >
                   Symbol No.*
                 </label>
                 <input
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="symbolNo"
+                  id="SymbolNo"
+                  value={formData.SymbolNo}
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter symbol number"
                 />
@@ -321,15 +413,18 @@ export default function Home() {
               <div className="mb-4">
                 <label
                   className="block text-[#0000ff]  font-bold mb-2"
-                  htmlFor="program"
+                  htmlFor="Program"
                 >
                   Program
                 </label>
                 <select
                   className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-[#0000ff]  leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-2 focus:ring-blue-300"
-                  id="program"
+                  id="Program"
+                  onChange={handleInputChange}
                 >
-                  <option value="">B.Sc. (Agriculture) 2077/078</option>
+                  <option value={formData.Program}>
+                    B.Sc. (Agriculture) 2077/078
+                  </option>
                 </select>
               </div>
             </div>
@@ -337,6 +432,10 @@ export default function Home() {
               <input
                 type="checkbox"
                 id="termsCheckbox"
+                checked={formData.termsCheckbox}
+                onChange={(e) =>
+                  setFormData({ ...formData, termsCheckbox: e.target.checked })
+                }
                 className="htmlForm-checkbox h-5 w-5 text-indigo-600"
               />
               <label htmlFor="termsCheckbox" className="ml-2 text-[#0000ff] ">
@@ -355,4 +454,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default YourFormComponent;
