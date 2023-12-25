@@ -88,7 +88,7 @@ export default function ExportLeads({ leadCreatorId, leadType, dateRange }) {
       onClick={exportLeads}
       disabled={loading}
     >
-      Export Leads
+      Export Registration Form in Excel
     </button>
   );
 }
